@@ -14,10 +14,15 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('New user connected');
 
-    socket.emit('newEmail', {
-        from: 'seong@example.com',
-        text: 'This is not a drill',
-        createAt: 123
+    // Event Listener from client to server
+    socket.emit('newMessage', {
+        from: 'server',
+        text: 'Hello World!',
+        createdAt: 123
+    });
+
+    socket.on('createMessage', (newMessage) => {
+        console.log('createMessage', newMessage);
     });
 
     socket.on('disconnect', () => {
@@ -26,6 +31,6 @@ io.on('connection', (socket) => {
 });
 app.use(express.static(publicPath));
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
