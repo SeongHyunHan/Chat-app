@@ -1,2 +1,5 @@
 #package directory
 node_modules/
+
+#testcases
+server/**/*.test.js
